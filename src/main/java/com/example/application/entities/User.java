@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
@@ -24,6 +26,7 @@ public class User implements Serializable {
 	private String password;
 	private String phone;
 
+	@JsonIgnore // esta anotação impede loops e é preferencial que deixe do lado que seja oneToMany
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 
