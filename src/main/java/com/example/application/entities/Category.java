@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_category")
@@ -20,6 +23,8 @@ public class Category implements Serializable{
 	private Long id;
 	private String name;
 	
+	@ManyToMany(mappedBy = "categories")
+	@JsonIgnore // necessario para não entrar em loop
 	private Set<Product> products = new HashSet<>();
 	
 	public Category() {

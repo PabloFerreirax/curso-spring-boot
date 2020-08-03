@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +29,10 @@ public class Product implements Serializable{
 	// instanciamos para que nunca começe valando nulo, e Set foi usado para termos certeza que não tera mesma ocorrencia
 	// Set nao pode ser instanciado entao vamos ter que usar HashSet
 	
+	@ManyToMany
+	@JoinTable(name = "tb_product_category",  // esta anotação cria uma tabela de relação entre duas outras... muitos para muitos
+	joinColumns = @JoinColumn(name = "product_id"), // esta anotação é necessaria para dizer qual o id desta tabela, desta classe que estamos e como vai se chamar
+	inverseJoinColumns = @JoinColumn(name = "category_id")) // e por fim esta anotação faz o mesmo que a outra mas para a outra tabela!
 	
 	private Set<Category> categories = new HashSet<>(); 
 	
