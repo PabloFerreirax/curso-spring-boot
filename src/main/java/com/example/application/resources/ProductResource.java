@@ -13,7 +13,7 @@ import com.example.application.entities.Product;
 import com.example.application.services.ProductService;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/products")
 public class ProductResource {
 
 	@Autowired

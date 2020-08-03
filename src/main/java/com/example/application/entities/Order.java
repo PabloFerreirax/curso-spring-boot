@@ -2,6 +2,8 @@ package com.example.application.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.application.entities.enums.OrderStatus;
@@ -24,15 +27,14 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T' HH:mm:ss'Z'", timezone = "GMT") // Serve para
-																											// deixar a
-																											// data no
-																											// formato
-																											// GMT
-																											// sempre!
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T' HH:mm:ss'Z'", timezone = "GMT") // Serve para deixar a data no formato GMT sempre!
 	private Instant moment;
 
 	private Integer orderStatus;
+	
+	
+	@OneToMany(mappedBy = "id.order") // id.order por que é um id de order item e este order especifica qual id é
+	private Set<OrderItem> items = new HashSet<>();
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
@@ -81,6 +83,10 @@ public class Order implements Serializable {
 		if(orderStatus != null) {
 			this.orderStatus = orderStatus.getCode();
 		}
+	}
+	
+	public Set<OrderItem> getItems(){
+		return items;
 	}
 
 	@Override
