@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.application.entities.Order;
-import com.example.application.services.OrderService;
+import com.example.application.entities.Category;
+import com.example.application.services.CategoryService;
 
 @RestController
-@RequestMapping(value = "/orders")
-public class OrderResource {
+@RequestMapping(value = "/users")
+public class CategoryResource {
 	
 	@Autowired
-	private OrderService orderService;
+	private CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<List<Order>> findAll(){
-		List<Order> list = orderService.findAll();
+	public ResponseEntity<List<Category>> findAll(){
+		List<Category> list = categoryService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}") // /{id} serve para dizer que vai aceitar um id dentro do metodo
-	public ResponseEntity<Order> findById(@PathVariable Long id){ // esta @ anotação serve para dizer que vamos utilizar o id declarado acima
-		Order obj = orderService.findById(id);
+	public ResponseEntity<Category> findById(@PathVariable Long id){ // esta @ anotação serve para dizer que vamos utilizar o id declarado acima
+		Category obj = categoryService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

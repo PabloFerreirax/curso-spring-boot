@@ -9,19 +9,18 @@ import org.springframework.stereotype.Service;
 import com.example.application.entities.Order;
 import com.example.application.repositories.OrderRepository;
 
-
 @Service
 public class OrderService {
 
-	@Autowired //de forma transparente ao programador
-	private OrderRepository userRepository;
-	
-	public List<Order> findAll(){
-		return userRepository.findAll();
+	@Autowired // de forma transparente ao programador
+	private OrderRepository orderRepository;
+
+	public List<Order> findAll() {
+		return orderRepository.findAll();
 	}
-	
+
 	public Order findById(Long id) {
-		Optional<Order> obj = userRepository.findById(id);
+		Optional<Order> obj = orderRepository.findById(id);
 		return obj.get();
 	}
 }

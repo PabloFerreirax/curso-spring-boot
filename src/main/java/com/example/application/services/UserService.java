@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service;
 import com.example.application.entities.User;
 import com.example.application.repositories.UserRepository;
 
-
 @Service
 public class UserService {
 
-	@Autowired //de forma transparente ao programador
+	@Autowired // de forma transparente ao programador
 	private UserRepository userRepository;
-	
-	public List<User> findAll(){
+
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
-	
+
 	public User findById(Long id) {
 		Optional<User> obj = userRepository.findById(id);
 		return obj.get();
