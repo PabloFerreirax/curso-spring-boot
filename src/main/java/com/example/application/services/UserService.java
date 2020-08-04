@@ -3,6 +3,8 @@ package com.example.application.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -46,9 +48,14 @@ public class UserService {
 	}
 
 	public User update(Long id, User user) { // uma junção de insert e delete
-		User entity = userRepository.getOne(id); //instancia um usuario mas não vai em um banco de dados ainda. ele deixa em memoria para usalo
-		updateData(entity, user);
-		return userRepository.save(user); // salva
+		try {
+			User entity = userRepository.getOne(id); //instancia um usuario mas não vai em um banco de dados ainda. ele deixa em memoria para usalo
+			updateData(entity, user);
+			return userRepository.save(user); // salva
+		}
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User user) { // quais campos são atualizados
