@@ -35,6 +35,7 @@ public class OrderItemPk implements Serializable{ // a classe é uma auxiliar pa
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	
 	@Override
 	public int hashCode() {
