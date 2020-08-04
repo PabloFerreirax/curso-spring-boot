@@ -31,4 +31,20 @@ public class UserService {
 	public void delete(Long id) {
 		userRepository.deleteById(id);
 	}
+
+	public User update(Long id, User user) {
+		User entity = userRepository.getOne(id); //instancia um usuario mas não vai em um banco de dados ainda. ele deixa em memoria para usalo
+		updateData(entity, user);
+		return userRepository.save(user); // salva
+	}
+
+	private void updateData(User entity, User user) { // quais campos são atualizados
+		entity.setName(user.getName());
+		entity.setEmail(user.getEmail());
+		entity.setPhone(user.getEmail());
+	}
 }
+
+
+
+
