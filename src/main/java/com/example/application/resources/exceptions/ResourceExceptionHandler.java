@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.example.application.services.exceptions.DatabaseEception;
 import com.example.application.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -21,5 +22,15 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI() );
 		return ResponseEntity.status(status).body(err);
 	}
+	
+	@ExceptionHandler(DatabaseEception.class) // tratamento personalizado desta execção
+	public ResponseEntity<StandardError> database(DatabaseEception e, HttpServletRequest request){
+		String error = "DataBase exception"; //mensagem de erro personalizada
+		HttpStatus status = HttpStatus.BAD_REQUEST; // erro  que deve aparecer codigo 404 neste caso
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI() );
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	
 	
 }
