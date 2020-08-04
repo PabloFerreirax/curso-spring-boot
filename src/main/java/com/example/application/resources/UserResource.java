@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,5 +43,12 @@ public class UserResource {
 				.buildAndExpand(obj.getId()).toUri(); // .buildAndExpand(obj.getId()) espera o Id do que foi inserido... precisa pegar o id /// toUri converte.
 		return ResponseEntity.created(uri).body(obj); //created espera um URI acima digo como fazer ela
 		// esta tag é muito util para criação do 201 que retorna tudo sobre o obj criado.
+	}
+	
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		userService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
